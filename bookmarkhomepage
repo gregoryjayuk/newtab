@@ -1,0 +1,36 @@
+#!/bin/bash
+
+cd ~/.GTD/Bookmarks
+
+NAMES=$(sqlite3 bookmarks.db "select name from tbl1 order by category")
+URLS=$(sqlite3 bookmarks.db "select url from tbl1 order by category")
+NAMESANDURLS=$(sqlite3 bookmarks.db "select '<a href=\"' || url || '\">', '<div class=\"cat\">' || category || '</div>', '<br>' || name ||'</a><br><br>' from tbl1 where category != 1 order by category" | tr -d '|')
+
+
+
+echo -e "<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width-device-width, initial-scale-1.0">
+        <link rel="stylesheet" href="homepage.css">
+</head>
+<div class="pics">
+<a href="http://www.youtube.com/"><div class="cat">1</div><br><img src="youtube.jpeg"></a><br><br>
+<a href="https://www.dragongoserver.net/status.php"><div class="cat">1</div><br><img src="dgs.jpg"></a><br><br>
+<a href="https://iptorrents.com/t"><div class="cat">1</div><br><img src="ipt.jpeg"></a><br><br>
+<a href="thepiratebay.org/"><div class="cat">1</div><br><img src="tpb.jpg"></a><br><br>
+<a href="https://classicdb.ch/"><div class="cat"><img src="wow.png"></div><br>Classic Wow Database</a><br><br>
+<a href="https://1337xto.to/"><div class="cat"><img src="leet.svg"></div><br>1337</a><br><br>
+<a href="https://outlook.office.com/"><div class="cat"><img src="outlook.jpeg"></div><br>Outlook</a><br><br>
+<a href="https://cp.elysium-project.org/vote"><div class="cat"><img src="vote.png"></div><br>Vote Elysium</a><br><br>
+<a href="https://blog.gregoryjay.co.uk/cpanel"><div class="cat"><img src="cpanel.jpeg"></div><br>CPanel</a><br><br>
+<a href="https://www.sport-video.org.ua/baseball.html"><div class="cat"><img src="mlb.png"></div><br>Major League Baseball</a><br><br>
+<a href="https://wiki.archlinux.org/"><div class="cat"><img src="arch.png"></div><br>Arch Wiki</a><br><br>
+<a href="http://127.0.0.1:8384/"><div class="cat"><img src="syncthing.jpeg"></div><br>Syncthing</a><br><br>
+<a href="https://github.com/gregoryjayuk/"><div class="cat"><img src="github.gif"></div><br>Github</a><br><br>
+</div>
+<div class="columns">
+" > ~/.GTD/Bookmarks/myhomepage.html
+echo -e "$NAMESANDURLS" >> ~/.GTD/Bookmarks/myhomepage.html
+echo -e "</div>" >> ~/.GTD/Bookmarks/myhomepage.html
