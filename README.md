@@ -1,5 +1,11 @@
-This script creates a HTML file for use as a 'New Tab' page.
+# newtab
 
-It uses bookmarks saved within a database named bookmarks.db within the directory reference at the top of the script to create the links. A CSS file named homepage.css can be used in the same directory to style the page.
+Generates a static HTML page to use as the browser's new-tab page, from a SQLite bookmarks database: every bookmark becomes a link, grouped and ordered by category, styled by a `homepage.css` beside the output.
 
+```bash
+./bookmarkhomepage      # reads ~/.GTD/Bookmarks/bookmarks.db, writes ~/.GTD/Bookmarks/myhomepage.html
+```
 
+The database needs a table `tbl1 (name, url, category)`. Point the browser's new-tab or home page at `myhomepage.html`.
+
+Its successor, a native macOS launcher over the same kind of database, is [bookmarks-launcher](https://github.com/gregoryjayuk/bookmarks-launcher).
